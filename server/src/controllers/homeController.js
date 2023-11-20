@@ -1,15 +1,15 @@
 import { pool } from "../libs/conection.js";
 
-export const getHome = (req, res) => {
-    pool.connect();
-    pool.query("SELECT * FROM users")
+export const getHome = async (req, res) => {
+    const client = await pool.connect();
+    client.query("SELECT * FROM users")
         .then(res => {
             console.log(res.rows)
-            pool.end()
+            client.release()
         })
         .catch(err => {
             console.log(err)
-            pool.end()
+            client.release()
 
         })
     res.json({

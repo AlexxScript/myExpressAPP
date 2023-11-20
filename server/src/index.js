@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use("/api", homeRoute);
+app.use("/", homeRoute);
 app.use("/task", taskRoute);
 app.use("/user", userRoute);
 
