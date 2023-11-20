@@ -11,7 +11,7 @@ export const getHome = async (req, res) => {
             console.log(err)
             client.release()
 
-        })
+        });
     res.json({
         message: "server is running"
     });
