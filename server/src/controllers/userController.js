@@ -33,11 +33,11 @@ export const createUser = async (req, res) => {
 };
 
 export const logIn = async (req, res) => {
-    const { email, password } = req.body;
+    const { user_email, password } = req.body;
     const client = await pool.connect();
     try {
         const text = "SELECT * FROM users WHERE user_email = $1";
-        const parameter = [email];
+        const parameter = [user_email];
         const queryResult = await client.query(text, parameter);
 
         if (queryResult.rows.length < 0) res.status(401).json({ message: "wrong email credential" });
@@ -62,4 +62,9 @@ export const logIn = async (req, res) => {
     }
 
 
+}
+
+export const logOut = (req, res) => {
+    res.cookie("token","");
+    return res.sendStatus(200);
 }

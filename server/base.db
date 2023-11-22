@@ -1,16 +1,5 @@
-createdb mytaskdb
-psql myTask
-
-CREATE TABLE roles(
-    id_role SERIAL PRIMARY KEY,
-    role VARCHAR(200)
-);
-
-INSERT INTO roles (role) VALUES ('ADMIN'),('MODERATOR');
-
 CREATE TABLE users(
     id_user SERIAL PRIMARY KEY,
-    id_role INT REFERENCES roles(id_role),
     user_email VARCHAR(200) NOT NULL UNIQUE,
     user_name VARCHAR(200) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL
