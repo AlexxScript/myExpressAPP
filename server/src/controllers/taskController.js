@@ -59,12 +59,47 @@ export const createTask = async (req, res) => {
     }
 };
 
-export const updateTask = (req, res) => {
+export const editTask = async (req, res) => {
+    const { id_user } = req.user;
     const { idTask } = req.params;
-    res.json(`idTaskToUpdate: ${idTask}`);
+    const { description } = req.body;
+    const client = await pool.connect();
+    const parameter = [description,idTask,id_user];
+    const quer1 = "SELECT * FROM tasks WHERE id_task = $1 AND id_user = $2";
+    const quer2 = "UPDATE tasks SET description = $1 WHERE id_task = $2 AND id_user = $3";
+
+    try {
+
+        const select = await client.query(quer1,[parseInt(idTask),parseInt(id_user)]);
+        console.log( select.rows.length <= 0)
+        if ( select.rows.length <= 0 ) return res.status(400).json({message:"Task does not exist"});
+        const edit = await client.query(quer2,parameter);
+        res.status(200).json({message:"Task edited",data:edit.rows})
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error);
+    } finally {
+        client.release();
+    }
+
 };
 
-export const deleteTask = (req, res) => {
+export const deleteTask = async (req, res) => {
+    const { id_user } = req.user;
     const { idTask } = req.params;
-    res.json(`idTaskToDelete: ${idTask}`);
+    const client = await pool.connect();
+    const query = "DELETE FROM tasks WHERE id_task=$1 AND id_user=$2";
+    const parameter = [idTask,id_user];
+
+    try {
+        const select = await client.query("SELECT * FROM tasks WHERE id_task = $1 AND id_user = $2",parameter);
+        if ( select.rows.length <= 0 ) return res.status(400).json({message:"Task does not exist"});
+        const deleteTask = await client.query(query,parameter);
+        res.status(200).json({message:"Task deleted succesfully",deleteTask});
+    } catch (error) {
+        return res.status(500).json(error)
+    } finally {
+        client.release()
+    }
 };

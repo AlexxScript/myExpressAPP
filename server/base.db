@@ -12,5 +12,5 @@ CREATE TABLE tasks(
     description TEXT
 );
 
-ALTER TABLE tasks DROP TABLE description;
+ALTER TABLE tasks DROP COLUMN description;
 
