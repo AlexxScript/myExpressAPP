@@ -1,25 +1,39 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
+    const [requestInfo,setRequestInfo] = useState({
+        state:"",
+        message:""
+    });
     
     useEffect(()=>{
-
         const loadData = async () => {
             try {
                 const res = await fetch("http://localhost:8080/");
                 const data = await res.json();
+                setRequestInfo({
+                    state: data.state,
+                    message: data.message
+                })
+                console.log(requestInfo.state);
                 return data    
-            } catch (error) {
+            } catch (error:any) {
                 console.log(error)
+                setRequestInfo(error)
             }
         }
-        console.log(loadData());
-
+        loadData()
     },[])
     
+    if (requestInfo.state === "unauthenticated") {
+        return(
+            <h1>{requestInfo.message}</h1>
+        )           
+    }
+
     return(
         <>
-            <h1>Hola</h1>
+            <h1>Autenticado</h1>
         </>
     )
 }
