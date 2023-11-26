@@ -16,5 +16,4 @@ export const authToken = (req, res, next) => {
         req.user = user;
         next();
     });
-    // console.log(req.cookies.token);
 }

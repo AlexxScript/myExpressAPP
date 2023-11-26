@@ -4,32 +4,22 @@ import { pool } from "../libs/conection.js";
 
 export const createUser = async (req, res) => {
     const client = await pool.connect();
-
     try {
         const saltRounds = 10;
         const { user_email, user_name, password, confirmPassword } = req.body;
-
         if (password !== confirmPassword) return res.status(400).json("password does not match");
-
         const emailCheck = await client.query('SELECT * FROM users WHERE user_email = $1', [user_email]);
         if (emailCheck.rows.length > 0) return res.status(400).json("Email exist");
-
-
         const userCheck = await client.query('SELECT * FROM users WHERE user_name = $1', [user_name]);
         if (userCheck.rows.length > 0) return res.status(400).json("user_name exist");
-
-
         const passCrypt = await bcrypt.hash(password, saltRounds);
-
         const insertion = await client.query('INSERT INTO users (user_email,user_name,password) VALUES($1,$2,$3)', [user_email, user_name, passCrypt]);
-
         res.json({ message: "user created", insertion });
     } catch (error) {
         return res.status(500).json({ error: "Internal server error", message: error.message });
     } finally {
         client.release();
     }
-
 };
 
 export const logIn = async (req, res) => {
