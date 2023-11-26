@@ -9,7 +9,9 @@ const App = () => {
     useEffect(()=>{
         const loadData = async () => {
             try {
-                const res = await fetch("http://localhost:8080/");
+                const res = await fetch("http://localhost:8080/",{
+                    credentials:"include"
+                });
                 const data = await res.json();
                 setRequestInfo({
                     state: data.state,
@@ -29,13 +31,13 @@ const App = () => {
         return(
             <h1>{requestInfo.message}</h1>
         )           
+    }else{
+        return(
+            <>
+                <h1>Autenticado</h1>
+            </>
+        )
     }
-
-    return(
-        <>
-            <h1>Autenticado</h1>
-        </>
-    )
 }
 
 export default App;
