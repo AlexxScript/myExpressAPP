@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext,useState } from "react";
+import AuthenticatedContext from "../context/AuthContext";
 
 const FormLogIn = () => {
+
+    const contextAu = useContext(AuthenticatedContext);
 
     const [field, setField] = useState({
         user_email:"",
@@ -27,7 +30,12 @@ const FormLogIn = () => {
                 body:JSON.stringify(field),
             });
             const data = await res.json();
-            console.log(data);
+            contextAu.setUser(prevStateUser => ({
+                ...prevStateUser,
+                state:data.state,
+                message:data.message
+            }))
+            console.log(contextAu.user);
         } catch (error) {
             console.log(error);
         }

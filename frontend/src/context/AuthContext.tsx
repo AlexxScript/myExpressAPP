@@ -12,7 +12,7 @@ interface AuthContextType {
 
 const defaultUserState: UserState = {
   message: "",
-  state: "unauthenticated"
+  state: ""
 };
 
 const AuthenticatedContext = createContext<AuthContextType>({
