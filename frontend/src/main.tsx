@@ -8,19 +8,27 @@ import {
 import App from "./App";
 import FormRegister from "./routes/FormRegister";
 import FormLogIn from "./routes/FormLogIn";
+import Dashboard from "./routes/Dashboard";
+import CreateTask from "./routes/CreateTask";
 
-const router = createBrowserRouter([
-    {
+const router = createBrowserRouter([{
         path: "/",
         element: <App/>
-    },
-    {
+    },{
         path: "/register",
         element: <FormRegister/>
-    },
-    {
+    },{
         path:"/login",
         element: <FormLogIn/>
+    },{
+        path:"/dashboard",
+        element:<Dashboard/>,
+        children: [
+            {
+                path:"/dashboard/create",
+                element: <CreateTask/>
+            }
+        ]
     }
 ])
 

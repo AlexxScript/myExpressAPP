@@ -34,7 +34,7 @@ const App = () => {
     }else{
         return(
             <>
-                <h1>Autenticado</h1>
+                <h1>{requestInfo.message}</h1>
             </>
         )
     }
