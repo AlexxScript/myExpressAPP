@@ -1,6 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+interface SingleTask {
+    id_task:number;
+    description:String;
+}
 
 const ListTasks = () => {
+
+    const [tasks,setTasks] = useState({
+        message:"",
+        tasks: [] as SingleTask[]
+    })
 
     useEffect(()=>{
         const loadTasks = async () => {
@@ -9,20 +19,30 @@ const ListTasks = () => {
                     credentials:"include"
                 });
                 const data = await res.json();
-                console.log(data);
-                return data;    
+                setTasks({
+                    message:data.message,
+                    tasks:data.tasks
+                })
             } catch (error) {
                 console.log(error);
+                return error
             }
             
         }
-        const data = loadTasks();
-        console.log(data);
+        loadTasks();
     },[])
+
+    if(tasks.tasks.length === 0) {
+        return <h1>No tasks</h1>
+    }
 
     return (
         <div className="w-[80%] mx-auto my-5">
-            <h1>task</h1>
+            {
+                tasks.tasks.map((task:SingleTask) => (
+                    <h1 key={task.id_task}>{task.description}</h1>
+                ))
+            }
         </div>
     );
 }
