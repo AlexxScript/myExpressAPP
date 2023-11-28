@@ -1,5 +1,6 @@
 import React, { useContext,useState } from "react";
 import AuthenticatedContext from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const FormLogIn = () => {
 
@@ -30,23 +31,23 @@ const FormLogIn = () => {
                 body:JSON.stringify(field),
             });
             const data = await res.json();
-            contextAu.setUser(prevStateUser => ({
-                ...prevStateUser,
+            contextAu.setUser({
                 state:data.state,
                 message:data.message
-            }))
-            console.log(contextAu.user);
+            })
         } catch (error) {
             console.log(error);
         }
 
     }
 
+    if(contextAu.user.state === "authenticated") return <Navigate to="/dashboard" replace/>
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="formUser" onSubmit={handleSubmit}>
             <div className="mx-auto w-3/12">
                 <svg viewBox="0 0 225 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="undraw_profile_pic_re_iwgo 1" clip-path="url(#clip0_7_10)">
+                    <g id="undraw_profile_pic_re_iwgo 1" clipPath="url(#clip0_7_10)">
                         <g id="Group">
                             <path id="Vector" d="M125.634 160.129L130.989 127.406L94.8448 113.008L89.4901 162.747L125.634 160.129Z" fill="#A0616A" />
                             <path id="Vector_2" d="M161.961 208.489C158.857 209.969 155.695 211.304 152.485 212.489C146.066 214.864 139.44 216.656 132.642 217.852C125.999 219.025 119.177 219.621 112.356 219.621C103.141 219.621 93.979 218.54 85.1185 216.401C81.6489 215.569 78.1495 214.552 74.7095 213.367C74.3488 213.24 73.9824 213.113 73.6218 212.985C69.3541 211.472 65.1573 209.697 61.1203 207.692C60.5764 207.426 60.0326 207.154 59.4888 206.865C58.8859 206.565 58.2889 206.247 57.686 205.917C56.9175 205.507 56.155 205.079 55.3925 204.646C52.8391 203.201 50.3269 201.64 47.927 200.016L47.7674 199.912C47.6256 199.814 47.4837 199.722 47.3478 199.623C47.4364 199.167 47.5192 198.75 47.596 198.381C47.8915 196.93 48.0866 196.133 48.0866 196.133L64.2707 163.443L68.7808 154.335L70.9796 153.45L87.5894 146.775H128.186L140.995 151.953C140.995 151.953 141.06 152.19 141.19 152.647C142.466 157.126 149.914 182.556 161.47 207.437C161.63 207.784 161.795 208.136 161.961 208.489Z" fill="#659BAB" />

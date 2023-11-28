@@ -36,7 +36,7 @@ const FormRegister = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="formUser" onSubmit={handleSubmit}>
             <div className="mx-auto w-3/12">
                 <svg viewBox="0 0 225 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="undraw_pic_profile_re_7g2h 1" clip-path="url(#clip0_6_2)">

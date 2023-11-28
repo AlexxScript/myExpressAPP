@@ -6,6 +6,7 @@ import FormLogIn from "../routes/FormLogIn";
 import Dashboard from "../routes/Dashboard";
 import EditTask from "../routes/EditTask";
 import AuthenticatedContext from "../context/AuthContext";
+import ListTask from "../routes/ListTask";
 
 const router = createBrowserRouter([{
     path: "/",
@@ -21,6 +22,10 @@ const router = createBrowserRouter([{
     element: <Dashboard />,
     children: [
         {
+            path: "/dashboard",
+            element: <ListTask/>
+        },
+        {
             path: "/dashboard/edit",
             element: <EditTask />
         }
@@ -32,7 +37,7 @@ const AppAuth = () => {
 
     const [user, setUser] = useState({
         message: "",
-        state: "unauthenticated"
+        state: ""
     });
 
     useEffect(() => {
@@ -46,10 +51,9 @@ const AppAuth = () => {
                     state: data.state,
                     message: data.message
                 })
-                console.log(user.state);
+                // console.log(user);
                 return data
             } catch (error: any) {
-                console.log(error)
                 setUser(error)
             }
         }

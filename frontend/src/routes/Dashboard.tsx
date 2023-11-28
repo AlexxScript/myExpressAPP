@@ -1,6 +1,7 @@
 import { Navigate, Outlet, redirect } from "react-router-dom";
 import { useContext } from "react";
 import AuthenticatedContext from "../context/AuthContext";
+import DashboardMenu from "../components/DashboardMenu";
 
 const Dashboard = () => {
 
@@ -9,8 +10,8 @@ const Dashboard = () => {
     if (contextAu.user.state === "unauthenticated") return <Navigate to="/login" replace/>
     
     return ( 
-        <div>
-            <h1>Dashboard</h1>
+        <div className="dashContainer">
+            <DashboardMenu/>
             <Outlet/>
         </div>
     );

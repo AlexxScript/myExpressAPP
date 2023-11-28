@@ -48,8 +48,10 @@ export const logIn = async (req, res) => {
             },
             process.env.JWT_SECRET
         )
-        res.cookie("token",token);
-        res.json({ message:"succes",token });
+        res.cookie("token",token,{
+            sameSite: 'none',
+        })
+        res.json({ message:"succes",token,state:"authenticated" });
     } catch (error) {
         console.log(error);
     } finally {
@@ -60,6 +62,6 @@ export const logIn = async (req, res) => {
 };
 
 export const logOut = (req, res) => {
-    res.cookie("token","");
+    res.cookie("token","",{sameSite: 'none',});
     return res.sendStatus(200);
 };
