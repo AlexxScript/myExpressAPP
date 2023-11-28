@@ -8,7 +8,7 @@ export const readTasks = async (req, res) => {
 
     try {
         const tasks = await client.query(query, parameter);
-        if (tasks.rows.length === 0) return res.status(404).json({ message: "Tasks not found",tasks:tasks.rows });
+        if (tasks.rows.length === 0) return res.status(404).json({ message: "Hey! it looks like you do not have tasks, you should create some task",tasks:tasks.rows });
         res.json({message:"succes",tasks:tasks.rows});
     } catch (error) {
         console.log(error);
