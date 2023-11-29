@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const FormCreateTask = () => {
+interface PropsCreateTask {
+    createTask: (description:any) => void
+}
+
+const FormCreateTask:React.FC<PropsCreateTask> = ({createTask}) => {
 
     const [description,setDescription] = useState({
         description:""
@@ -10,29 +14,12 @@ const FormCreateTask = () => {
         setDescription({
             description:e.target.value
         });
+        console.log(description.description);
     }
 
     const handleSubmit = async (e:React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            const res = await fetch("http://localhost:8080/task/create",{
-                method:"POST",
-                credentials:"include",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify(description)
-            });
-            const data = await res.json();
-            if (data.message === "Task created") {
-                setDescription({
-                    description:""
-                })
-            }
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
+        createTask(description)
     }
 
     return (
