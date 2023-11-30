@@ -9,6 +9,7 @@ interface SingleTask {
 
 const ListTask = () => {
     const [tasks, setTasks] = useState<SingleTask[]>([]);
+    const [message,setMessage] = useState<string>("");
 
     useEffect(() => {
         loadTasks();
@@ -22,6 +23,7 @@ const ListTask = () => {
             const data = await res.json();
             if (data.tasks) {
                 setTasks(data.tasks);
+                setMessage(data.message)
             }
         } catch (error) {
             console.log(error);
@@ -54,7 +56,8 @@ const ListTask = () => {
             method: "DELETE",
             credentials: "include"
         });
-        await res.json();
+        const data = await res.json();
+        setMessage(data.message);
         loadTasks();
     };
 
@@ -62,7 +65,7 @@ const ListTask = () => {
         <div className="[grid-area:form] flex flex-col my-4">
             <div className="w-full">
                 <FormCreateTask createTask={createTask}/>
-                <ListTasks tasks={tasks} deleteTask={deleteTask} />
+                <ListTasks tasks={tasks} deleteTask={deleteTask} message={message}/>
             </div>
         </div>
     );

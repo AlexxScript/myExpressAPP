@@ -26,7 +26,7 @@ const router = createBrowserRouter([{
             element: <ListTask/>
         },
         {
-            path: "/dashboard/edit",
+            path: "/dashboard/edit/:id_task",
             element: <EditTask />
         }
     ]

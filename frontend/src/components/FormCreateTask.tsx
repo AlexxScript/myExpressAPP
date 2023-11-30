@@ -20,6 +20,9 @@ const FormCreateTask:React.FC<PropsCreateTask> = ({createTask}) => {
     const handleSubmit = async (e:React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         createTask(description)
+        setDescription({
+            description:""
+        })
     }
 
     return (
@@ -27,7 +30,7 @@ const FormCreateTask:React.FC<PropsCreateTask> = ({createTask}) => {
         
             <div className="[grid-area:input] w-[100%]">
                 <label htmlFor="description">Description task</label>
-                <textarea className="w-full border-b-4 border-b-[var(--color-input)]" name="description" onChange={handleTextArea} value={description.description}/>
+                <textarea className="w-full border-b-2 border-b-[var(--color-input)]" name="description" onChange={handleTextArea} value={description.description}/>
             </div>
 
             <div className="[grid-area:button] w-[100%] bg-green-500 flex justify-center items-center rounded-[12px]">

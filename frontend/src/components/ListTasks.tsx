@@ -8,14 +8,15 @@ interface SingleTask {
 interface ListTasksProps {
     tasks: SingleTask[];
     deleteTask: (id: number) => void;
+    message?:string;
 }
 
-const ListTasks: React.FC<ListTasksProps> = ({tasks,deleteTask}) => {
+const ListTasks: React.FC<ListTasksProps> = ({tasks,deleteTask,message}) => {
 
     if (tasks.length === 0) {
         return (
             <div className="max-w-[80%] my-5 mx-auto">
-                <h1>No tasks</h1>
+                <h1>{message}</h1>
             </div>
         )
     }
@@ -27,7 +28,7 @@ const ListTasks: React.FC<ListTasksProps> = ({tasks,deleteTask}) => {
                     <div className="taskContainer flex my-2" key={task.id_task}>
                         <h3 className="[grid-area:description]">{task.description}</h3>
                         <div className="[grid-area:buttons] flex gap-4 justify-center items-center">
-                            <Link className="bg-[#659bab] text-center py-4 w-[50%] rounded-md" to="/">Edit</Link>
+                            <Link className="bg-[#659bab] text-center py-4 w-[50%] rounded-md" to={`/dashboard/edit/${task.id_task}`}>Edit</Link>
                             <button onClick={() => deleteTask(task.id_task)} className="bg-red-400 w-[50%] py-4 rounded-md" type="submit">Delete</button>
                         </div>
                     </div>

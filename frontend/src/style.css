@@ -92,3 +92,17 @@ textarea {
     grid-template-rows: auto;
     grid-template-areas: "description buttons";
 }
+
+.formEdit {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(90, 19, 204, 0.5);
+    backdrop-filter: blur(9.2px);
+    -webkit-backdrop-filter: blur(9.2px);
+    border: 1px solid rgba(90, 19, 204, 0.24);
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    border-width: 2px;
+}
