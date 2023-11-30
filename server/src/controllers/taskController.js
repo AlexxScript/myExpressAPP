@@ -71,7 +71,6 @@ export const editTask = async (req, res) => {
     try {
 
         const select = await client.query(quer1,[parseInt(idTask),parseInt(id_user)]);
-        console.log( select.rows.length <= 0)
         if ( select.rows.length <= 0 ) return res.status(400).json({message:"Task does not exist"});
         const edit = await client.query(quer2,parameter);
         res.status(200).json({message:"Task edited",data:edit.rows})

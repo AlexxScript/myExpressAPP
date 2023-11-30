@@ -63,5 +63,5 @@ export const logIn = async (req, res) => {
 
 export const logOut = (req, res) => {
     res.cookie("token","",{sameSite: 'none',});
-    return res.sendStatus(200);
+    return res.status(200).json({message:"Logout",state:"unauthenticated"});
 };
