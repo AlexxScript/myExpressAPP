@@ -7,7 +7,7 @@ export const authToken = (req, res, next) => {
 
     if(!token) return res.status(401).json(
         {
-            message:"Hey! it look like you are not sign in or not have a account,Would you like to join us to change the way of manage tasks?",
+            message:"Hey! Would you like to join us to change the way of manage tasks?",
             state: "unauthenticated"
         });
 

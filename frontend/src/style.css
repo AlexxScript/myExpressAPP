@@ -106,3 +106,12 @@ textarea {
     border-radius: 10px;
     border-width: 2px;
 }
+
+.navhome {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(90, 19, 204, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(9.2px);
+    border: 1px solid rgba(90, 19, 204, 0.24);
+    border-width: 2px;
+}
